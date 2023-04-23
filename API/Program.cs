@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using MediatR;
+using Application.Activities;
+using Application.Core;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,6 +20,8 @@ opt.AddPolicy("CorsPolicy",policy=>{
     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
 });
 });
+builder.Services.AddMediatR(typeof(List.Handler));
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
